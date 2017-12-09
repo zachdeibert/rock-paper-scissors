@@ -2,6 +2,7 @@
 using System.Runtime.Loader;
 using System.Threading;
 using Com.GitHub.ZachDeibert.RockPaperScissors.Ai;
+using Com.GitHub.ZachDeibert.RockPaperScissors.Ai.NearestNeighbor.PreviousMoves;
 using Com.GitHub.ZachDeibert.RockPaperScissors.Ai.Null;
 using Com.GitHub.ZachDeibert.RockPaperScissors.Ui;
 using Com.GitHub.ZachDeibert.RockPaperScissors.Ui.Text;
@@ -21,6 +22,7 @@ namespace Com.GitHub.ZachDeibert.RockPaperScissors {
                 Player = player,
                 Robot = Ai.GenerateMove()
             };
+            Ai.Learn(game);
             switch (game.State) {
                 case GameState.PlayerWon:
                     ++Score;
@@ -36,6 +38,9 @@ namespace Com.GitHub.ZachDeibert.RockPaperScissors {
         static void Main(string[] args) {
             foreach (string arg in args) {
                 switch (arg) {
+                    case "NearestNeighborPreviousMovesAi":
+                        Ai = new NearestNeighborPreviousMovesAi();
+                        break;
                     case "NullAi":
                         Ai = new NullAi();
                         break;
@@ -45,7 +50,7 @@ namespace Com.GitHub.ZachDeibert.RockPaperScissors {
                 }
             }
             if (Ai == null) {
-                Ai = new NullAi();
+                Ai = new NearestNeighborPreviousMovesAi();
             }
             if (Ui == null) {
                 Ui = new ConsoleUi();

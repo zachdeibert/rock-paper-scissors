@@ -8,7 +8,7 @@ namespace Com.GitHub.ZachDeibert.RockPaperScissors.Ai.Null {
             return (GameOption) Random.Next(3);
         }
 
-        public void Learn(GameOption player, GameOption robot, GameState state) {
+        public void Learn(Game game) {
         }
 
         public NullAi() {
