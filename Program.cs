@@ -8,8 +8,8 @@ using Com.GitHub.ZachDeibert.RockPaperScissors.Ui.Text;
 
 namespace Com.GitHub.ZachDeibert.RockPaperScissors {
     class Program {
-        static IAi Ai = new NullAi();
-        static IUi Ui = new ConsoleUi();
+        static IAi Ai;
+        static IUi Ui;
         static int Score;
 
         static void Stop() {
@@ -34,6 +34,22 @@ namespace Com.GitHub.ZachDeibert.RockPaperScissors {
         }
 
         static void Main(string[] args) {
+            foreach (string arg in args) {
+                switch (arg) {
+                    case "NullAi":
+                        Ai = new NullAi();
+                        break;
+                    case "ConsoleUi":
+                        Ui = new ConsoleUi();
+                        break;
+                }
+            }
+            if (Ai == null) {
+                Ai = new NullAi();
+            }
+            if (Ui == null) {
+                Ui = new ConsoleUi();
+            }
             Ui.OnPlay += Play;
             AssemblyLoadContext.Default.Unloading += a => Stop();
             Console.CancelKeyPress += (a, b) => Stop();
